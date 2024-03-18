@@ -1,0 +1,146 @@
+.home-container {
+  min-height: 100vh;
+  background: #181818;
+  background-size: cover;
+}
+.banner-image-container {
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 500px;
+}
+.banner-content {
+  margin-left: 10%;
+  width: 500px;
+}
+.banner-content-heading {
+  color: #fff;
+  font-family: 'HK Grotesk', sans-serif;
+  font-size: 40px;
+  margin-bottom: 20px;
+  font-style: normal;
+  font-weight: 500;
+}
+.banner-content-desc {
+  color: #fff;
+  font-family: 'HK Grotesk', sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.home-play {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  color: #171f46;
+  border-radius: 3px;
+  padding: 10px;
+  border: none;
+  background-color: #fff;
+}
+.home-banner-foot {
+  width: 100%;
+  height: 250px;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(24, 24, 24, 0.55) 38.26%,
+    #181818 92.82%,
+    #181818 98.68%,
+    #181818 108.61%
+  );
+}
+.home-slick-container {
+  width: 80%;
+  margin: auto;
+}
+.home-movies-type {
+  color: #fff;
+  font-family: 'HK Grotesk ', sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-top: 50px;
+}
+.loader-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  border-radius: 8px;
+  background: #0d0d0d;
+}
+.banner {
+  height: 500px;
+  width: 80%;
+  margin: auto;
+  border-radius: 10px;
+}
+
+.banner-loader-container {
+  width: 80%;
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  height: 415px;
+  border-radius: 8px;
+  background: #0d0d0d;
+}
+
+.failure-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  border-radius: 8px;
+  background: #0d0d0d;
+}
+
+.failure-desc-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.failure-content {
+  color: #fff;
+  font-family: 'HK Grotesk', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.try-button {
+  color: #171f46;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 10px;
+  border: none;
+  background-color: #fff;
+}
+
+@media (max-height: 768px) {
+  .banner-image-container {
+    height: 250px;
+  }
+  .banner-content {
+    width: 300px;
+  }
+  .banner-content-heading {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  .banner-content-desc {
+    font-size: 12px;
+  }
+  .home-movies-type {
+    font-size: 15px;
+  }
+}

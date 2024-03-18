@@ -1,0 +1,30 @@
+.popular-bg-container {
+  min-height: 100vh;
+  background: #181818;
+  background-size: cover;
+}
+.popular-videoItem-container {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  list-style-type: none;
+  padding: 0px;
+}
+.popular-loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 80vh;
+}
+.popular-failure-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  border-radius: 8px;
+}

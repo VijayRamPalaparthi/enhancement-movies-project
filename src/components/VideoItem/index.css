@@ -1,0 +1,26 @@
+.movie-poster {
+  height: 120px;
+  width: 90px;
+  border-radius: 5px;
+}
+.movie-poster:hover {
+  -ms-transform: scale(1.5); /* IE 9 */
+  -webkit-transform: scale(1.5); /* Safari 3-8 */
+  transform: scale(1.2);
+}
+
+@media screen and (min-width: 768px) {
+  .movie-poster {
+    height: 300px;
+    width: 250px;
+    border-radius: 10px;
+    margin-right: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+  .movie-poster:hover {
+    -ms-transform: scale(1.2); /* IE 9 */
+    -webkit-transform: scale(1.5); /* Safari 3-8 */
+    transform: scale(1.1);
+  }
+}

@@ -1,0 +1,115 @@
+.bg-container {
+  background: linear-gradient(
+      117deg,
+      rgba(0, 0, 0, 0.4) 0.46%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    url('https://res.cloudinary.com/djlwgb6z2/image/upload/v1704029317/Movies%20Mini%20Projects/netfilx_1_o2x3ia.png'),
+    lightgray 50% / cover no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  padding: 48px;
+}
+.login-logo {
+  margin-left: 165px;
+  width: 180px;
+  height: 52.001px;
+  flex-shrink: 0;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+.login-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  border-radius: 8px;
+  background-color: #0c0b10;
+  align-self: center;
+}
+.login-heading {
+  color: var(--General-White, #fff);
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 40px; /* 125% */
+}
+.input-container {
+  display: flex;
+  flex-direction: column;
+}
+.label {
+  color: #fff;
+  font-family: 'Hk Grotesk', sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px; /* 133.333% */
+  letter-spacing: 0.12px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.input {
+  width: 360px;
+  height: 40px;
+  border-radius: 2px;
+  background-color: #333;
+  border: none;
+  outline: none;
+  color: #fff;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+.login-button {
+  width: 360px;
+  height: 40px;
+  border: none;
+  color: #ffff;
+  font-weight: bold;
+  background-color: #e50914;
+  margin-top: 20px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+.error-msg {
+  color: var(--Light-red-600, #dc2626);
+  font-family: 'roboto';
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0px;
+}
+.qrcode{
+  width: 100px;
+  height: 100px;
+  align-self: center;
+}
+.qr-container{
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-height: 768px) {
+  .login-logo {
+    margin: 0px;
+    width: 100px;
+    height: 30px;
+  }
+  .login-button {
+    width: 250px;
+  }
+  .login-card {
+    padding: 20px;
+  }
+  .input {
+    width: 250px;
+  }
+}

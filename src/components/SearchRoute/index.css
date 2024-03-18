@@ -1,0 +1,43 @@
+.no-result-view-container {
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Roboto';
+}
+.no-result-image {
+  width: 450px;
+  height: 378px;
+}
+.no-result-text {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  width: 296px;
+  color: #ffffff;
+}
+
+.no-result-text {
+  font-size: 24px;
+  line-height: 31px;
+  width: 565px;
+  color: #ffffff;
+}
+.search-videoItem-container {
+  list-style-type: none;
+  padding: 0px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 80%;
+  margin: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .no-result-image {
+    width: 210px;
+    height: 176px;
+  }
+}
