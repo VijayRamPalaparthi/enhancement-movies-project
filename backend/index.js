@@ -38,22 +38,26 @@ app.use(session({
 
 app.use(express.json())
 
+
+app.post('/login', async(req, res) => {
+  const userDetail =req.body;
+  const url = 'https://apis.ccbp.in/login'
+  const options = {method: 'POST', body: JSON.stringify(userDetail)}
+  const fetchedData = await fetch(url, options)
+  const data = await fetchedData.json()
+  res.send(data)
+
+});
+
 // Generate MFA secret for a user
-app.post('/generateMfaSecret', (req, res) => {
-  const { username,password } = req.body;
-  if (activeSessions[username]) {
-    res.send({"error_msg":'User already has an active session', "status_code":403});
-  } 
-    try{
-      
-        const secret = speakeasy.generateSecret();
-        users[username].secret = secret.base32;
-        QRCode.toDataURL(secret.otpauth_url,(err, data_url)=>{
-          
-          res.send({"image":data_url});
-        })
-      
-      
+app.post('/generateMfaSecret', async (req, res) => {
+  const { username } = req.body;
+  try{
+      const secret = speakeasy.generateSecret();
+      users[username].secret = secret.base32;
+      QRCode.toDataURL(secret.otpauth_url,(err, data_url)=>{
+           res.send({"image":data_url});
+      })
     }catch{
       return res.send({"error_msg":'Please Correctly Enter Username and Password', "status_code":403})
     }
@@ -61,33 +65,29 @@ app.post('/generateMfaSecret', (req, res) => {
   
 });
 
-
-app.post('/login', async(req, res) => {
-  const userDetail =req.body;
-  const {username,code}=userDetail
+// Verify MFA code
+app.post("/verifyMfa", (req, res)=>{
+  const{username,code}=req.body
   const user=users[username]
   const verified = speakeasy.totp.verify({
     secret: user.secret,
     encoding: 'base32',
     token: code
   });
-
-  // Check if user already has an active session
   if(verified){
-    // Create a new session
-    const sessionId = uuid.v4();
-    req.session.id = sessionId;
-    activeSessions[username] = sessionId;
-    const url = 'https://apis.ccbp.in/login'
-    const options = {method: 'POST', body: JSON.stringify(userDetail)}
-    const fetchedData = await fetch(url, options)
-    const data = await fetchedData.json()
-    // console.log(activeSessions)
-    res.send(data)
-  }else {
-    res.send({"error_msg":'Verifaction Failed', "status_code":403}); 
+    // Check if user already has an active session
+    if (activeSessions[username]){
+      res.send({"error_msg":'User already has an active session', "status_code":403});
+    }else{
+      // Create a new session
+      const sessionId = uuid.v4();
+      req.session.id = sessionId;
+      activeSessions[username] = sessionId;
+      res.send({"status":"MFa code is valid", "status_code":200})
+    }
+  }else{
+    res.status(403).send({"error_msg":"Invalid MFA code"})
   }
-
 });
 
 

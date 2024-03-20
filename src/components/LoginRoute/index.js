@@ -4,7 +4,7 @@ import {Redirect} from 'react-router-dom'
 import './index.css'
 
 class LoginRoute extends Component {
-  state = {showError: false, errorMsg: '', username: '', password: "",code:'', loginshow: true,url:''}
+  state = {showError: false, showError2:false, errorMsg2:'', errorMsg: '', username: '', password: "",code:'', loginshow: true,url:'',jwtToken:''}
 
   onChangePassword = event => {
     this.setState({password: event.target.value})
@@ -18,8 +18,8 @@ class LoginRoute extends Component {
     this.setState({code:event.target.value})
   }
 
-  submitSuccess = jwtToken => {
-    const {username}=this.state
+  submitSuccess = () => {
+    const {username,jwtToken}=this.state
     Cookies.set('jwt_token', jwtToken, {expires: 30})
     Cookies.set("username", username,{expires:30})
     const {history} = this.props
@@ -31,54 +31,55 @@ class LoginRoute extends Component {
   }
 
   generate2mfa= async() =>{
-    const{username}=this.state
-    const url = '/generateMfaSecret'
-    const userDetails = {username}
-    const options = {method: 'POST', body: JSON.stringify(userDetails),headers:{"Content-type":"application/json"}}
-    const fetchedData = await fetch(url, options)
-    const data = await fetchedData.json()
-    if(data.status_code===403){
-      this.submitFailure(data.error_msg)
-    }else{
-      console.log(data)
-      this.setState({url:data.image, loginshow:false})
-    }
-    
-  }
-
-  onFormSubmit = async event => {
-    event.preventDefault()
-    const {username, password, code} = this.state
-
-    // fetch("/login", )
-    // .then(res=>res.json())
-    // .then(json=>console.log(json))
-
-    const userDetails = {username, password, code}
-    const options = {method: 'POST', body: JSON.stringify(userDetails), headers:{"Content-type":"application/json"}}
+    const{username,password}=this.state
     const url="/login"
+    const userDetails = {username, password,}
+    const options = {method: 'POST', body: JSON.stringify(userDetails), headers:{"Content-type":"application/json"}}
     const fetchedData=await fetch(url,options)
     const data=await fetchedData.json()
-    console.log(data)
-
-    // const url = 'https://apis.ccbp.in/login'
-    // const userDetails = {username, password}
-    // const options = {method: 'POST', body: JSON.stringify(userDetails)}
-    // const fetchedData = await fetch(url, options)
-    // const data = await fetchedData.json()
-    // console.log(data)
+    const token=data.jwt_token
 
     if (data.status_code===400 || data.status_code===403) {
       this.submitFailure(data.error_msg)
     } 
     else {
-      this.submitSuccess(data.jwt_token)
+      // this.submitSuccess(data.jwt_token)
+      //this.setState({jwtToken:data.jwt_token})
+      const url = '/generateMfaSecret'
+      const userDetails = {username}
+      const options = {method: 'POST', body: JSON.stringify(userDetails),headers:{"Content-type":"application/json"}}
+      const fetchedData = await fetch(url, options)
+      const data = await fetchedData.json()
+      if(data.status_code===403){
+        this.submitFailure(data.error_msg)
+      }else{
+        console.log(data)
+        this.setState({url:data.image, loginshow:false, jwtToken:token,showError:false})
+      }
+    }  
+  }
+
+  onFormSubmit = async event => {
+    event.preventDefault()
+    const {username,code} = this.state
+    const verifyDetail = {username,code}
+    const options = {method: 'POST', body: JSON.stringify(verifyDetail), headers:{"Content-type":"application/json"}}
+    const url="/verifyMfa"
+    const fetchedData=await fetch(url,options)
+    const data=await fetchedData.json()
+    console.log(data)
+
+    if (data.status_code===200) {
+      this.submitSuccess()
+    } 
+    else {
+      this.setState({showError2:true, errorMsg2:data.error_msg})
     }
     
   }
 
   render() {
-    const {showError, errorMsg, username, password,loginshow, url} = this.state
+    const {showError, showError2,errorMsg,errorMsg2, username, password,loginshow, url} = this.state
 
     const jwtToken = Cookies.get('jwt_token')
     if (jwtToken !== undefined) {
@@ -130,6 +131,7 @@ class LoginRoute extends Component {
                   Scane and Enter Verification Code
                 </label>
               <input type="text" className='input' onChange={this.onChangeCode} id="key"/>
+              {showError2 && <p className="error-msg"> {errorMsg2} </p>}
               <button className="login-button" type="submit">
                 {' '}
                 Login{' '}
